@@ -13,9 +13,9 @@ namespace mqpi.Controllers
     {
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get(string type)
+        public IEnumerable<dynamic> Get(string type)
         {
-            return new string[]{"smth", "smth2"};
+            return new dynamic[]{};
         }
 
         // GET api/values/5
