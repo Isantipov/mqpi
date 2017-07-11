@@ -49,8 +49,9 @@ namespace mqpi.Controllers
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(string type, int id)
         {
+            return Ok($"{type} {id} has been removed");
         }
     }
 }
