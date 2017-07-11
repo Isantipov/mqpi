@@ -1,0 +1,49 @@
+#ignore thumbnails created by windows
+Thumbs.db
+#ignore files build by Visual Studio
+*.pdb
+*.obj
+*.user
+*.aps
+*.pch
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.cache
+*.ilk
+*.log
+[Bb]in
+[Dd]ebug*/
+*.lib
+*.sbr
+obj/
+[Rr]elease*/
+_ReSharper*/
+[Tt]est[Rr]esult*
+*.dotCover
+*.DotSettings
+*.ReSharper
+packages
+*.orig
+UpgradeLog*.htm
+Backup
+*.old
+_Publish
+_Package
+
+
+.vs/
+*.ncrunchproject
+*.ncrunchsolution
+
+
+# Git extension backup
+GitExtensions.settings.backup
+
+# Rider
+.idea/
