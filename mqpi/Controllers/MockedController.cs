@@ -9,7 +9,7 @@ using Microsoft.Rest;
 namespace mqpi.Controllers
 {
     [Route("api/{type}")]
-    public class ValuesController : Controller
+    public class MockedController : Controller
     {
         // GET api/values
         [HttpGet]
