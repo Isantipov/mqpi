@@ -20,9 +20,9 @@ namespace mqpi.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(string type, int id)
+        public ActionResult Get(string type, int id)
         {
-            return "type";
+            return new NotFoundObjectResult($"{type} with id='{id}' was not found");
         }
 
         // POST api/values
