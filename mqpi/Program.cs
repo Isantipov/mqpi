@@ -14,6 +14,7 @@ namespace mqpi
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine("hello");
             BuildWebHost(args).Run();
         }
 

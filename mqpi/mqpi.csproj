@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <UserSecretsId>aspnet-mqpi-B9A2CAB7-8DE2-4ED8-AD6E-619AF6E07916</UserSecretsId>
+    <StartupObject>mqpi.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
