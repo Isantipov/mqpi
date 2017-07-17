@@ -23,4 +23,10 @@
     <None Include="log4net.config" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
