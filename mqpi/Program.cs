@@ -19,9 +19,14 @@ namespace mqpi
         {
             Console.WriteLine("hello");
 
+            var executingAssemblyDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var currentDirectory = Directory.GetCurrentDirectory();
+
+            Console.WriteLine($"{nameof(executingAssemblyDir)}:{executingAssemblyDir}");
+            Console.WriteLine($"{nameof(currentDirectory)}:{currentDirectory}");
             // ReSharper disable once InconsistentNaming
             var log4netConfig = new XmlDocument();
-            log4netConfig.Load(File.OpenRead("log4net.config"));
+            log4netConfig.Load(File.OpenRead(Path.Combine(executingAssemblyDir, "log4net.config")));
 
             var repo = log4net.LogManager.CreateRepository(
                 Assembly.GetEntryAssembly(), typeof(log4net.Repository.Hierarchy.Hierarchy));
