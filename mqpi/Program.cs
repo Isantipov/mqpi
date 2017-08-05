@@ -33,7 +33,7 @@ namespace mqpi
 
             log4net.Config.XmlConfigurator.Configure(repo, log4netConfig["log4net"]);
 
-            log.Info("Application - Main is invoked");
+            log.Info("mqpi is launching");
 
             BuildWebHost(args).Run();
         }
