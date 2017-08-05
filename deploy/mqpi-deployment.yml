@@ -1,0 +1,7 @@
+---
+
+- hosts: mqpi_server
+  max_fail_percentage: 0
+  serial: 1
+  roles:
+    - { role: mqpi_server }

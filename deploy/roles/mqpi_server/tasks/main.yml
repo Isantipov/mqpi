@@ -1,0 +1,50 @@
+---
+
+- name: install libunwind
+  yum: name=libunwind state=present
+
+# - name: install libicu
+#   yum: name=libicu state=present #fails for some reason with package not found
+
+- name: install the libicu rpm from a remote repo
+  yum:
+    name: http://mirror.centos.org/centos/7/os/x86_64/Packages/libicu-50.1.2-15.el7.x86_64.rpm
+    state: present
+
+- name: "Disable old service"
+  service: name=mqpi_server.service state=stopped enabled=no
+  ignore_errors: yes
+
+- name: "Stop previous service"
+  service: name=mqpi_server.service state=stopped
+  ignore_errors: yes
+
+- name: removes directory
+  file: 
+    path: /usr/bin/mqpi
+    state: absent
+
+- name: Creates directory
+  file: path=/usr/bin/mqpi/ state=directory
+
+- unarchive:
+    src: ./../mqpi/bin/Release/netcoreapp2.0/centos.7-x64/publish.zip
+    dest: /usr/bin/mqpi
+    remote_src: False
+
+- name: Changing permission of "/usr/bin/mqpi/mqpi", adding "+x"
+  file: dest=/usr/bin/mqpi/mqpi mode=a+x
+
+- name: "Copy new service"
+  template: src=mqpi_server.service.j2 dest=/etc/systemd/system/mqpi_server.service
+
+- name: "Restart systemd"
+  command: systemctl daemon-reload
+
+- name: "Enable service"
+  service: name=mqpi_server.service enabled=yes
+
+- name: "Run new service"
+  service: name=mqpi_server.service state=started
+
+  # logs in cat /Logs/mqpi4.log

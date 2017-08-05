@@ -1,0 +1,5 @@
+[mqpi_server]
+10.8.56.21
+
+[mqpi_server:vars]
+ansible_user=root
