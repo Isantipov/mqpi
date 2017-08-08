@@ -47,7 +47,7 @@ namespace mqpi.Controllers
         public dynamic Put(string type, [FromBody]dynamic value, int id)
         {
             TraceNaively(value);
-            if (value.id != id)
+            if (value.Id != id)
             {
                 return new BadRequestObjectResult("Id in the object must match id in URI");
             }

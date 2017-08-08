@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -28,30 +30,34 @@ namespace mqpi
         {
             app.Use(async (context, next) =>
             {
-                // Do work that doesn't write to the Response.
                 LogRequest(context.Request);
                 await next.Invoke();
-                // Do logging or other work that doesn't write to the Response.
-                //Log.Info($"middleware. Request: {context.Request}");
-
             });
 
             app.UseMvc();
             
         }
 
-        private void LogRequest(HttpRequest contextRequest)
+        private static void LogRequest(HttpRequest rq)
         {
             var log = new StringBuilder();
-            log.AppendLine($"{contextRequest.Method} {contextRequest.GetDisplayUrl()}");
-            foreach (var header in contextRequest.Headers)
+            log.AppendLine($"{rq.Method} {rq.GetDisplayUrl()}");
+            foreach (var header in rq.Headers)
             {
                 log.AppendLine($"{header.Key}: {header.Value}");
             }
 
-            //var body = 
-            
-            Log.Info("middleware_" + log);
+            rq.EnableRewind();
+            // todo: check what happens if reader is finalized.
+            var reader = new StreamReader(rq.Body);
+            var content = reader.ReadToEnd();
+            rq.Body.Seek(0, SeekOrigin.Begin);
+            if (!string.IsNullOrEmpty(content))
+            {
+                log.AppendLine(content);
+            }
+
+            Log.Info(log);
         }
     }
 }
