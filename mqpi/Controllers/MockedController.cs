@@ -13,7 +13,7 @@ namespace mqpi.Controllers
         public IEnumerable<dynamic> Get(string type)
         {
             log.Info($"GET {type}");
-            return new dynamic[]{;
+            return new dynamic[]{};
         }
 
         // GET api/values/5
