@@ -1,13 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
-using Microsoft.Rest;
-using Newtonsoft.Json;
-using Serilog.Formatting.Json;
 
 namespace mqpi.Controllers
 {
@@ -35,7 +28,6 @@ namespace mqpi.Controllers
         [HttpPost]
         public object Post(string type, [FromBody]dynamic value)
         {
-            TraceNaively(value);
             var random = new Random(DateTime.UtcNow.Second);
             value.Id = random.Next();
 
@@ -46,8 +38,7 @@ namespace mqpi.Controllers
         [HttpPut("{id}")]
         public dynamic Put(string type, [FromBody]dynamic value, int id)
         {
-            TraceNaively(value);
-            if (value.id != id)
+            if (value.Id != id)
             {
                 return new BadRequestObjectResult("Id in the object must match id in URI");
             }
@@ -59,17 +50,7 @@ namespace mqpi.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(string type, int id)
         {
-            TraceNaively();
             return Ok($"{type} {id} has been removed");
-        }
-
-        // todo: replace with tracing in handler i.antsipau
-        private void TraceNaively(dynamic value = null)
-        {
-            var request = ControllerContext.HttpContext.Request;
-
-            var body = value != null ? JsonConvert.SerializeObject(value, Formatting.Indented) : "";
-            log.Info($"{request.Method} {request.GetDisplayUrl()} {body}");
         }
     }
 }
