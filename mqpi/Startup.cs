@@ -16,9 +16,10 @@ using Microsoft.Extensions.Options;
 
 namespace mqpi
 {
-    public class  Startup
+    public class Startup
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(typeof(Startup));
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -35,7 +36,6 @@ namespace mqpi
             });
 
             app.UseMvc();
-            
         }
 
         private static void LogRequest(HttpRequest rq)
