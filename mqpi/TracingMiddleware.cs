@@ -13,8 +13,11 @@ namespace mqpi
     {
         private readonly RequestDelegate _next;
 
-        private static readonly ILog Log =
+        private static readonly ILog TextLogger =
             LogManager.GetLogger("log4net-default-repository", "TextHttpTracer");
+
+        private static readonly ILog JsonLogger =
+            LogManager.GetLogger("log4net-default-repository", "JsonHttpTracer");
 
 
         public TracingMiddleware(RequestDelegate next)
@@ -49,7 +52,8 @@ namespace mqpi
                 log.AppendLine(content);
             }
 
-            Log.Info(log);
+            TextLogger.Info(log);
+            JsonLogger.Info(log);
         }
     }
 
