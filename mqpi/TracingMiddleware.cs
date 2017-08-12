@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using log4net;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -11,7 +12,9 @@ namespace mqpi
     public class TracingMiddleware
     {
         private readonly RequestDelegate _next;
-        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(typeof(TracingMiddleware));
+
+        private static readonly ILog Log =
+            LogManager.GetLogger("log4net-default-repository", "TextHttpTracer");
 
 
         public TracingMiddleware(RequestDelegate next)
