@@ -35,6 +35,14 @@ namespace mqpi
 
         private static void LogRequest(HttpRequest rq)
         {
+            var log = GetTextTrace(rq);
+
+            TextLogger.Info(log);
+            JsonLogger.Info(log);
+        }
+
+        private static StringBuilder GetTextTrace(HttpRequest rq)
+        {
             var log = new StringBuilder();
             log.AppendLine($"{rq.Method} {rq.GetDisplayUrl()}");
             foreach (var header in rq.Headers)
@@ -52,8 +60,7 @@ namespace mqpi
                 log.AppendLine(content);
             }
 
-            TextLogger.Info(log);
-            JsonLogger.Info(log);
+            return log;
         }
     }
 
