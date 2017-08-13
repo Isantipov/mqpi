@@ -67,7 +67,7 @@ namespace mqpi
                     Method = rq.Method,
                     Url = rq.GetDisplayUrl(),
                     Headers = rq.Headers.ToDictionary(i => i.Key, i => (string) i.Value),
-                    Body = bodyAsObject,
+                    ParsedBody = bodyAsObject,
                     RawBody = rqBody
                 }
             };
