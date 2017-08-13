@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using log4net;
@@ -7,7 +8,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Http.Internal;
-using Serilog.Formatting.Json;
 
 namespace mqpi
 {
@@ -43,7 +43,12 @@ namespace mqpi
             var jsonTrace = new TraceItem
             {
                 Date = DateTime.UtcNow,
-                Request = new TraceItem.RequestTrace {Method = rq.Method, Url = rq.GetDisplayUrl()}
+                Request = new TraceItem.RequestTrace
+                {
+                    Method = rq.Method,
+                    Url = rq.GetDisplayUrl(),
+                    Headers = rq.Headers.ToDictionary(i => i.Key, i => (string)i.Value),
+                }
             };
             
             JsonLogger.Info(jsonTrace);
