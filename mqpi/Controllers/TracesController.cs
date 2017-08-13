@@ -22,7 +22,7 @@ namespace mqpi.Controllers
 
         private static IEnumerable<string> ReadLines()
         {
-            using (FileStream file = IOFile.Open("../Logs/mqpi4.log", FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite))
+            using (FileStream file = IOFile.Open("/var/log/mqpi/text.log", FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite))
             {
                 using (var textReader = new StreamReader(file))
                 {
