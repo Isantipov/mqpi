@@ -23,8 +23,8 @@ namespace mqpi.Controllers
         [Route("json")]
         public ActionResult GetJson(int offset = 0, int limit = 100)
         {
-            var res = OpenJsonFile();
-            return Ok(res);
+            IEnumerable<TraceItem> traceItems = OpenJsonFile().Skip(offset).Take(limit);
+            return Ok(traceItems);
         }
 
         private IEnumerable<TraceItem> OpenJsonFile()
