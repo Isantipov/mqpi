@@ -11,6 +11,7 @@ namespace mqpi.Controllers
     [Route("_sys/traces")]
     public class TracesController : Controller
     {
+        [Route("text")]
         public string Get(int offset = 0, int limit = 100)
         {
             var lines = ReadLines()
